@@ -2,7 +2,7 @@
 
 ## downloading disko.nix
 ```bash
-curl https://raw.githubusercontent.com/juliangodd/disko-config/main/disko.nix -O /tmp/disko.nix
+curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/disko.nix -O /tmp/disko.nix
 ```
 
 ## disko formatting command
