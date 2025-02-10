@@ -2,7 +2,11 @@
 
 ## downloading disko.nix
 ```bash
-curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/disko.nix -O /tmp/disko.nix
+curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/disko.nix -o /tmp/disko.nix
+```
+## Populate password for disko luks encryption
+```bash
+echo -n "password" > /tmp/secret.key
 ```
 
 ## disko formatting command
