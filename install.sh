@@ -17,7 +17,7 @@ sudo nixos-generate-config --no-filesystems --root /mnt
 sudo curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/nixos/configuration.nix -o /mnt/etc/nixos/configuration.nix --clobber
 sudo curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/nixos/flake.nix -o /mnt/etc/nixos/flake.nix --clobber
 
-mv /tmp/disko.nix /mnt/etc/nixos/flake.nix
+mv /tmp/disko.nix /mnt/etc/nixos/disko.nix
 
 cd /mnt/etc/nixos
 
