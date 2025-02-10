@@ -24,13 +24,6 @@
                             mountpoint = "/boot";
                         };
                     };
-                    swap = {
-                        size = "4G";
-                        content = {
-                            type = "swap";
-                            resumeDevice = true;
-                        };
-                    };
                     root = {
                         name = "root";
                         size = "100%";
@@ -51,8 +44,10 @@
                         content = {
                             type = "luks";
                             name = "crypted";
-                            settings.allowDiscards = true;
-                            passwordFile = "/tmp/secret.key";
+                            settings = {
+                                allowDiscards = true;
+                                keyFile = "/tmp/secret.key";
+                            };
                             content = {
                                 type = "btrfs";
                                 extraArgs = ["-f"];
@@ -61,15 +56,17 @@
                                     "/root" = {
                                         mountpoint = "/";
                                     };
-
                                     "/persist" = {
                                         mountOptions = ["subvol=persist" "noatime"];
                                         mountpoint = "/persist";
                                     };
-
                                     "/nix" = {
                                         mountOptions = ["subvol=nix" "noatime"];
                                         mountpoint = "/nix";
+                                    };
+                                    "/swap" = {
+                                        mountpoint = "/.swapvol";
+                                        swap.swapfile.size = "4G";
                                     };
                                 };
                             };
