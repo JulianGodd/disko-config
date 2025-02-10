@@ -24,9 +24,14 @@
         isNormalUser = true;
         initialPassword = "1";
         extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+
+        packages = with pkgs; [
+            neovim
+            curl
+        ];
     };
 
-    openssh = {
+    services.openssh = {
         enable = true;
         ports = [ 22 ];
         settings = {
