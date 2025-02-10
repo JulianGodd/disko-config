@@ -26,6 +26,17 @@
         extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     };
 
+    openssh = {
+        enable = true;
+        ports = [ 22 ];
+        settings = {
+            #PasswordAuthentication = false;
+            PermitRootLogin = lib.mkForce "no";
+            KbdInteractiveAuthentication = false;
+            LoginGraceTime = 0; # regreSSHion fix
+        };
+    };
+
     nixpkgs.config.allowUnfree = true;
 
     nix = {
