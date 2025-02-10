@@ -2,7 +2,11 @@
 
 ## Quick install
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/install.sh | sh
+curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/install.sh -o /tmp/install.sh
+```
+
+```bash
+chmod +x /tmp/install.sh
 ```
 
 ## downloading disko.nix
