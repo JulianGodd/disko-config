@@ -15,15 +15,16 @@ replace `'"/dev/nvme0n1"'` with your drive
 sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko.nix --arg device '"/dev/nvme0n1"'
 ```
 
+## Generate HW config
+```bash
+sudo nixos-generate-config --no-filesystems --root /mnt
+```
+
 ## initialize flake
 ```bash
 nix flake init --template github:vimjoyer/impermanent-setup
 ```
 
-## Generate HW config
-```bash
-sudo nixos-generate-config --no-filesystems --root /mnt
-```
 
 ## installing nixos
 ```bash
