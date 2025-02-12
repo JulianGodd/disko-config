@@ -28,7 +28,7 @@
                                 settings = {
                                     bypassWorkqueues = true;
                                     allowDiscards = true;
-                                    keyFile = "/tmp/secret.key";
+                                    keyFile = "/tmp/secret.key"; # This prevents tpm2 unattended boot if left in after installation
                                     crypttabExtraOpts = [ "tpm2-device=auto" "tpm2-measure-pcr=yes" ];
                                 };
                                 content = {

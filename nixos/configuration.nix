@@ -14,12 +14,6 @@
         availableKernelModules = [ "tpm_crb"];
     };
 
-    #boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
-
-    #environment.etc."crypttab.initramfs".text = ''
-    #    root UUID="..." none tpm2-device=auto
-    #'';
-
     users.users."someuser" = {
         isNormalUser = true;
         initialPassword = "1";
