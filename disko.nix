@@ -37,7 +37,6 @@
                                 settings = {
                                     allowDiscards = true;
                                     keyFile = "/tmp/secret.key";
-                                    crypttabExtraOpts = [ "tpm2-device=auto" "tpm2-measure-pcr=yes" ];
                                 };
 
                                 subvolumes = {
