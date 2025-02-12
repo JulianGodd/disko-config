@@ -8,14 +8,6 @@ then
     exit
 fi
 
-read -sp "Admin Password: " adminpass && echo
-read -sp "Confirm Admin Password: " adminpass2 && echo
-if [ "$adminpass" != "$adminpass2" ]
-then
-    echo -e "\nError: Passwords don't match!"
-    exit
-fi
-
 read -ep "Drive to use: " drive_file
 if [ ! -b $drive_file ]; then
    echo -e "\nError: Path does not contain block device"
@@ -49,13 +41,10 @@ curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/n
 
 cat /tmp/disko.nix | sed '/keyFile = "/d' > /mnt/etc/nixos/disko.nix
 
-echo -e "\n\nChange the username in configuration.nix and the drive in flake.nix, then run:"
-echo "sudo nixos-install --root /mnt --flake /mnt/etc/nixos#default"
+#echo -e "\n\nChange the username in configuration.nix and the drive in flake.nix, then run:"
+#echo "sudo nixos-install --root /mnt --flake /mnt/etc/nixos#default"
 
-nixos-install --root /mnt --flake /mnt/etc/nixos#default <<-_EOT_
-$ADMINPASS
-$ADMINPASS
-_EOT_
+nixos-install --no-root-password --root /mnt --flake /mnt/etc/nixos#default 
 
 echo -e "\n\nRun this to enroll your encryption password:"
 echo "sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+7 ${drive_file}p2"
