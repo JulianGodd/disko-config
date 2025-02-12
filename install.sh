@@ -30,16 +30,16 @@ echo -n "$pass1" > /tmp/secret.key
 
 curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/disko.nix -o /tmp/disko.nix
 
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko.nix --arg device '"/dev/nvme0n1"'
+nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/disko.nix --arg device '"/dev/nvme0n1"'
 
-sudo nixos-generate-config --no-filesystems --root /mnt
+nixos-generate-config --no-filesystems --root /mnt
 
 # Curl configuration and flake 
 
-DRIVE_ESCAPED=echo "$drive_file" | sed 's/\//\\\//g'
+DRIVE_ESCAPED=`echo "$drive_file" | sed 's/\//\\\//g'`
 
-sudo curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/nixos/configuration.nix | sed "s/machine-user/$username/g" | sed "s/machine-host/$hostname/g" > /mnt/etc/nixos/configuration.nix
-sudo curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/nixos/flake.nix | sed "s/\/dev\/vda/$DRIVE_ESCAPED/g" > /mnt/etc/nixos/flake.nix
+curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/nixos/configuration.nix | sed "s/machine-user/$username/g" | sed "s/machine-host/$hostname/g" > /mnt/etc/nixos/configuration.nix
+curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/nixos/flake.nix | sed "s/\/dev\/vda/$DRIVE_ESCAPED/g" > /mnt/etc/nixos/flake.nix
 
 cat /tmp/nixos/disko.nix | sed '/keyFile = "/d' > /mnt/etc/nixos/disko.nix
 
