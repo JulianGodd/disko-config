@@ -11,7 +11,7 @@
                     type = "gpt";
                     partitions = {
                         ESP = {
-                            size = "500M";
+                            size = "512M";
                             type = "EF00";
                             content = {
                                 type = "filesystem";
@@ -24,66 +24,34 @@
                             size = "100%";
                             content = {
                                 type = "luks";
-                                name = "crypt-main";
-                                extraOpenArgs = [ ];
-                                additionalKeyFiles = [ "/tmp/additionalSecret.key" ];
-                                content = {
-                                    type = "lvm_pv";
-                                    vg = "pool";
-                                };
+                                name = "crypted";
                                 settings = {
                                     bypassWorkqueues = true;
-                                    keyFile = "/tmp/secret.key";
                                     allowDiscards = true;
+                                    keyFile = "/tmp/secret.key";
                                     crypttabExtraOpts = [ "tpm2-device=auto" "tpm2-measure-pcr=yes" ];
                                 };
-                            };
-                        };
-                    };
-                };
-            };
-        };
-        lvm_vg = {
-            pool = {
-                type = "lvm_vg";
-                lvs = {
-                    thin-main = {
-                        size = "95%FREE";
-                        lvm_type = "thin-pool";
-                    };
-                    nix = {
-                        size = "100G";
-                        lvm_type = "thinlv";
-                        pool = "thin-main";
-                        content = {
-                            type = "filesystem";
-                            format = "btrfs";
-                            mountpoint = "/nix";
-                            mountOptions = [ "noatime" ];
-                        };
-                    };
-                    persist = {
-                        size = "100G";
-                        lvm_type = "thinlv";
-                        pool = "thin-main";
-                        content = {
-                            type = "filesystem";
-                            format = "btrfs";
-                            mountpoint = "/mnt/persist";
-                            mountOptions = [ "noatime" ];
-                        };
-                    };
-                    crypt-home-someuser = {
-                        size = "100%FREE";
-                        lvm_type = "thinlv";
-                        pool = "thin-main";
-                        content = {
-                            type = "luks";
-                            name = "home-someuser";
-                            content = {
-                                type = "filesystem";
-                                format = "btrfs";
-                                mountOptions = [ "noatime" ];
+                                content = {
+                                    type = "btrfs";
+                                    extraArgs = [ "-f" ];
+                                    subvolumes = {
+                                        "/root" = {
+                                            mountpoint = "/";
+                                        };
+                                        "/persist" = {
+                                            mountpoint = "/persist";
+                                            mountOptions = [ "subvol=persist" "compress=zstd" "noatime" ];
+                                        };
+                                        "/nix" = {
+                                            mountpoint = "/nix";
+                                            mountOptions = [ "subvol=nix" "compress=zstd" "noatime" ];
+                                        };
+                                        "/swap" = {
+                                            mountpoint = "/.swapvol";
+                                            swap.swapfile.size = "8G";
+                                        };
+                                    };
+                                };
                             };
                         };
                     };
@@ -91,4 +59,5 @@
             };
         };
     };
+}
 }
