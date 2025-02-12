@@ -2,7 +2,8 @@
 
 ## Quick install
 ```bash
-curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/install.sh -o /tmp/install.sh
+curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/install.sh -o /tmp/install.sh && \
+chmod +x /tmp/install.sh
 ```
 
 ## Generate HW config
