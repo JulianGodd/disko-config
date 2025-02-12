@@ -5,8 +5,8 @@
     disko.devices = {
         disk = {
             main = {
+                inherit device;
                 type = "disk";
-                device = "/dev/vdb";
                 content = {
                     type = "gpt";
                     partitions = {
@@ -80,7 +80,6 @@
                         content = {
                             type = "luks";
                             name = "home-someuser";
-                            initrdUnlock = false; # Unlocked on login with config/pam-mount.nix
                             content = {
                                 type = "filesystem";
                                 format = "btrfs";
