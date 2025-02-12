@@ -31,6 +31,12 @@
         ];
     };
 
+    services.displayManager.sddm = {
+        enable = true;
+        enableHidpi = true;
+    };
+    services.xserver.desktopManager.plasma5.enable = true;
+
     services.openssh = {
         enable = true;
         ports = [ 22 ];
