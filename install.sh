@@ -1,8 +1,16 @@
 #!/usr/bin/env bash
 
 read -sp "Encryption Password: " pass1 && echo
-read -sp "Confirm Password: " pass2 && echo
+read -sp "Confirm Encryption Password: " pass2 && echo
 if [ "$pass1" != "$pass2" ]
+then
+    echo -e "\nError: Passwords don't match!"
+    exit
+fi
+
+read -sp "Admin Password: " adminpass && echo
+read -sp "Confirm Admin Password: " adminpass2 && echo
+if [ "$adminpass" != "$adminpass2" ]
 then
     echo -e "\nError: Passwords don't match!"
     exit
@@ -43,3 +51,10 @@ cat /tmp/disko.nix | sed '/keyFile = "/d' > /mnt/etc/nixos/disko.nix
 
 echo -e "\n\nChange the username in configuration.nix and the drive in flake.nix, then run:"
 echo "sudo nixos-install --root /mnt --flake /mnt/etc/nixos#default"
+
+nixos-install --root /mnt --flake /mnt/etc/nixos#default <<-_EOT_
+$ADMINPASS
+$ADMINPASS
+_EOT_
+
+PASSWORD=$pass1 systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+7 ${drive_file}p2
