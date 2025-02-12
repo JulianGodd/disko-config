@@ -34,33 +34,5 @@
                 };
             };
         };
-
-        lvm_vg.main.lvs = {
-            nix.size = "100G";
-            persist.size = "100G";
-            swap = {
-                size = "30G";
-                lvm_type = "thinlv";
-                pool = "thin-main";
-                content = {
-                    type = "swap";
-                    randomEncryption = true;
-                };
-            };
-            crypt-home-someuser = {
-                size = "100G";
-                lvm_type = "thinlv";
-                pool = "thin-main";
-                content = {
-                    type = "luks";
-                    name = "home-someuser";
-                    content = {
-                        type = "filesystem";
-                        format = "btrfs";
-                        mountOptions = [ "noatime" ];
-                    };
-                };
-            };
-        };
     };
 }
