@@ -34,11 +34,6 @@
                                 type = "btrfs";
                                 extraArgs = ["-f"];
 
-                                settings = {
-                                    allowDiscards = true;
-                                    keyFile = "/tmp/secret.key";
-                                };
-
                                 subvolumes = {
                                     "/root" = {
                                         mountpoint = "/";
