@@ -24,10 +24,11 @@
                         size = "100%";
                         content = {
                             type = "luks";
-                            name = "crypted";
+                            name = "root";
                             settings = {
                                 allowDiscards = true;
                                 keyFile = "/tmp/secret.key";
+                                crypttabExtraOpts = [ "tpm2-device=auto" ];
                             };
                             content = {
                                 type = "btrfs";

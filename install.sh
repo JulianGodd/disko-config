@@ -21,5 +21,5 @@ sudo mv /tmp/disko.nix /mnt/etc/nixos/disko.nix
 
 cd /mnt/etc/nixos
 
-echo Change the username in configuration.nix and the drive in flake.nix, then run:
-echo "    nixos-install --root /mnt --flake /mnt/etc/nixos#default"
+echo -e "\n\nChange the username in configuration.nix and the drive in flake.nix, then run:"
+echo "nixos-install --root /mnt --flake /mnt/etc/nixos#default"

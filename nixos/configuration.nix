@@ -31,11 +31,11 @@
         ];
     };
 
-    services.displayManager.sddm = {
-        enable = true;
-        enableHidpi = true;
+    networking = {
+        hostName = "somehost";
+
+        networkmanager.enable = true;
     };
-    services.xserver.desktopManager.plasma5.enable = true;
 
     services.openssh = {
         enable = true;
@@ -47,6 +47,12 @@
             LoginGraceTime = 0; # regreSSHion fix
         };
     };
+
+    services.displayManager.sddm = {
+        enable = true;
+        enableHidpi = true;
+    };
+    services.xserver.desktopManager.plasma5.enable = true;
 
     nixpkgs.config.allowUnfree = true;
 
