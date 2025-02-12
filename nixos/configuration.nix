@@ -14,7 +14,7 @@
         availableKernelModules = [ "tpm_crb"];
     };
 
-    users.users."someuser" = {
+    users.users."machine-user" = {
         isNormalUser = true;
         initialPassword = "1";
         extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
@@ -26,7 +26,7 @@
     };
 
     networking = {
-        hostName = "somehost";
+        hostName = "machine-host";
 
         networkmanager.enable = true;
     };
