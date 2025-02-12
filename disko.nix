@@ -52,6 +52,7 @@
                         lvm_type = "thin-pool";
                     };
                     nix = {
+                        size = "100G";
                         lvm_type = "thinlv";
                         pool = "thin-main";
                         content = {
@@ -62,6 +63,7 @@
                         };
                     };
                     persist = {
+                        size = "100G";
                         lvm_type = "thinlv";
                         pool = "thin-main";
                         content = {
@@ -69,6 +71,21 @@
                             format = "btrfs";
                             mountpoint = "/mnt/persist";
                             mountOptions = [ "noatime" ];
+                        };
+                    };
+                    crypt-home-someuser = {
+                        size = "100%FREE";
+                        lvm_type = "thinlv";
+                        pool = "thin-main";
+                        content = {
+                            type = "luks";
+                            name = "home-someuser";
+                            initrdUnlock = false; # Unlocked on login with config/pam-mount.nix
+                            content = {
+                                type = "filesystem";
+                                format = "btrfs";
+                                mountOptions = [ "noatime" ];
+                            };
                         };
                     };
                 };
