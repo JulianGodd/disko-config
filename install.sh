@@ -57,4 +57,5 @@ $ADMINPASS
 $ADMINPASS
 _EOT_
 
-PASSWORD=$pass1 systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+7 ${drive_file}p2
+echo -e "\n\nRun this to enroll your encryption password:"
+echo "sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+7 ${drive_file}p2"
