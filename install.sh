@@ -36,14 +36,12 @@ sudo nixos-generate-config --no-filesystems --root /mnt
 
 # Curl configuration and flake 
 
-DRIVE_ESCAPED=echo $drive_file | sed 's/\//\\\//g'
+DRIVE_ESCAPED=echo "$drive_file" | sed 's/\//\\\//g'
 
-curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/nixos/configuration.nix | sed "s/machine-user/$username/g" | sed "s/machine-host/$hostname/g" > /mnt/etc/nixos/configuration.nix
-curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/nixos/flake.nix | sed "s/\/dev\/vda/$DRIVE_ESCAPED/g" > /mnt/etc/nixos/flake.nix
+sudo curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/nixos/configuration.nix | sed "s/machine-user/$username/g" | sed "s/machine-host/$hostname/g" > /mnt/etc/nixos/configuration.nix
+sudo curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/nixos/flake.nix | sed "s/\/dev\/vda/$DRIVE_ESCAPED/g" > /mnt/etc/nixos/flake.nix
 
 cat /tmp/nixos/disko.nix | sed '/keyFile = "/d' > /mnt/etc/nixos/disko.nix
-
-cd /mnt/etc/nixos
 
 echo -e "\n\nChange the username in configuration.nix and the drive in flake.nix, then run:"
 echo "sudo nixos-install --root /mnt --flake /mnt/etc/nixos#default"
