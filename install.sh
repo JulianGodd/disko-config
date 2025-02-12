@@ -36,10 +36,8 @@ nixos-generate-config --no-filesystems --root /mnt
 
 # Curl configuration and flake 
 
-DRIVE_ESCAPED=`echo "$drive_file" | sed 's/\//\\\//g'`
-
 curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/nixos/configuration.nix | sed "s/machine-user/$username/g" | sed "s/machine-host/$hostname/g" > /mnt/etc/nixos/configuration.nix
-curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/nixos/flake.nix | sed "s/\/dev\/vda/$DRIVE_ESCAPED/g" > /mnt/etc/nixos/flake.nix
+curl https://raw.githubusercontent.com/JulianGodd/disko-config/refs/heads/main/nixos/flake.nix | sed "s;/dev/vda;$drive_file;g" > /mnt/etc/nixos/flake.nix
 
 cat /tmp/disko.nix | sed '/keyFile = "/d' > /mnt/etc/nixos/disko.nix
 
