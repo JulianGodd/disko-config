@@ -4,7 +4,6 @@
     disko.devices = {
         disk.main = {
             inherit device;
-
             content.partitions = {
                 esp = {
                     name = "ESP";
@@ -34,31 +33,32 @@
                     };
                 };
             };
+        };
 
-            lvm_vg.main.lvs = {
-                nix.size = "100G";
-                persist.size = "100G";
-                swap = {
-                    size = "30G";
-                    lvm_type = "thinlv";
-                    pool = "thin-main";
-                    content = {
-                        type = "swap";
-                        randomEncryption = true;
-                    };
+        lvm_vg.main.lvs = {
+            nix.size = "100G";
+            persist.size = "100G";
+            swap = {
+                size = "30G";
+                lvm_type = "thinlv";
+                pool = "thin-main";
+                content = {
+                    type = "swap";
+                    randomEncryption = true;
                 };
-                crypt-home = {
-                    size = "100G";
-                    lvm_type = "thinlv";
-                    pool = "thin-main";
+            };
+            crypt-home-someuser = {
+                size = "100G";
+                lvm_type = "thinlv";
+                pool = "thin-main";
+                content = {
+                    type = "luks";
+                    name = "home-someuser";
+                    initrdUnlock = false; # Unlocked on login with config/pam-mount.nix
                     content = {
-                        type = "luks";
-                        name = "home";
-                        content = {
-                            type = "filesystem";
-                            format = "btrfs";
-                            mountOptions = [ "noatime" ];
-                        };
+                        type = "filesystem";
+                        format = "btrfs";
+                        mountOptions = [ "noatime" ];
                     };
                 };
             };
